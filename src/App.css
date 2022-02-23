@@ -12,7 +12,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.chat-history {height: calc(100% - 80px); position: relative; top: 40px;}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
