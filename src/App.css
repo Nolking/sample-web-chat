@@ -23,6 +23,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.my-message p {word-break: break-all;}
+.other-message p {word-break: break-all;}
+
 
 .App-link {
   color: #61dafb;

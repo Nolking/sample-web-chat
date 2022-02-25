@@ -32,10 +32,10 @@ function App() {
       setIdentifiedUser(true)
       if (window.localStorage.getItem('chatLog').includes(' AND ')) {
         setChatLog(window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el)))
-        console.log('chat after submit')
-        console.log(chatLog)
+      } else if (window.localStorage.getItem('chatLog') !== '') {
+        setChatLog([JSON.parse(window.localStorage.getItem('chatLog'))])
       }
-  }
+  } 
   function nameChangeHandler(event) {
     setMyName(event.target.value.trim())
   }
