@@ -5,21 +5,17 @@ import './App.css';
 function App() {
   const [identifiedUser, setIdentifiedUser] = useState(false);
   const [myName, setMyName] = useState('')
-  let arrChatLog = window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el));
-  let [chatLog, setChatLog] = useState(arrChatLog)
-  useEffect(() => {
-    
-  }, [chatLog]);
+  // const [trigger, setTrigger] = useState(false)
+  if (window.localStorage.getItem('chatLog') == null) window.localStorage.setItem('chatLog','') 
+  let arrChatLog = []
+  if (window.localStorage.getItem('chatLog').includes(' AND '))  arrChatLog = window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el));
+  else if (window.localStorage.getItem('chatLog') !== '') {arrChatLog = [JSON.parse(window.localStorage.getItem('chatLog'))] }
   
+  let [chatLog, setChatLog] = useState(arrChatLog)
   function handlePrevChat(chatLog) {
-    console.log(chatLog)
     setChatLog(chatLog)
-    chatLog = chatLog.map(el => JSON.stringify(el))
-    chatLog = chatLog.join(' AND ')
-    window.localStorage.setItem('chatLog', chatLog)
   }
   function submitHandler() {
-    
     let users= window.localStorage.getItem('userList');
     if (users == null) {
       users = []
@@ -34,10 +30,11 @@ function App() {
     // else {alert('user already exists, please choose another one'); return;}
     window.localStorage.setItem('userList', users)
       setIdentifiedUser(true)
-      chatLog = window.localStorage.getItem('chatLog');
-      chatLog = chatLog.split(' AND ')
-      chatLog = chatLog.map(el => JSON.parse(el))
-      console.log(chatLog)
+      if (window.localStorage.getItem('chatLog').includes(' AND ')) {
+        setChatLog(window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el)))
+        console.log('chat after submit')
+        console.log(chatLog)
+      }
   }
   function nameChangeHandler(event) {
     setMyName(event.target.value.trim())

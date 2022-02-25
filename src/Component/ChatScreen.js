@@ -3,28 +3,46 @@ import ChatHistory from "./ChatHistory";
 export default function ChatScreen(props) {
     const [prevChat, setPrevChat] = useState(props.chatLog)
     const [curMess, setCurMess] = useState('')
+    let arr = []
+
+    const handleStorage = (event) => {
+        console.log(event);
+        if (event.key === 'chatLog') setPrevChat(event.newValue.split(' AND ').map(el => JSON.parse(el)));
+      }
+      window.addEventListener('storage', handleStorage);
     useEffect(() => {
-        // Update the document title using the browser API
-        
+        console.log(prevChat)
+        window.localStorage.setItem('chatLog', prevChat.map(el => JSON.stringify(el)).join(' AND '));
+        if (window.localStorage.getItem('chatLog') === '') setPrevChat([{userName: props.myName, chat: []}]); 
       }, [prevChat]);
+      
     function messageHandler(event) {
         setCurMess(event.target.value)
     }
     function sendMesage() {
-        let arr = window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el));
-        let myMess = {}
-        myMess.userName = props.myName;
-        let lastChat = prevChat[prevChat.length - 1];
-        if (lastChat.userName === props.myName) {
-            prevChat[prevChat.length - 1].chat.push(curMess)
+        if (window.localStorage.getItem('chatLog').includes(' AND '))  arr = window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el));
+        else if (window.localStorage.getItem('chatLog') !== '') {arr = [JSON.parse(window.localStorage.getItem('chatLog'))] }
+        if (arr.length> 0) {
+            
+            let lastChat = arr[arr.length - 1];
+            if (lastChat.userName === props.myName) {
+                // arr[arr.length - 1].chat.push(curMess)
+                lastChat = {userName: props.myName, chat: [...lastChat.chat, curMess]}
+                arr.splice(arr.length-1, 1, lastChat)
+                setPrevChat(arr)
+            }
+            else { 
+                let myMess = {}
+                myMess.userName = props.myName;
+                myMess.chat = []
+                myMess.chat.push(curMess);
+                arr.push(myMess)
+                console.log(arr)
+                setPrevChat(arr)
+            }
+        } else {
+            setPrevChat([{userName: props.myName, chat: curMess}]); 
         }
-        else { myMess.chat = []
-            myMess.chat.push(curMess);
-            arr.push(myMess)
-            setPrevChat(arr)
-        }
-        console.log(prevChat)
-        props.handlePrevChat(prevChat)
     }
     return (
         <div  className="text-3xl relative block w-[400px] ">
