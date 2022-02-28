@@ -1,3 +1,12 @@
+# A sample chat web app with these features:
+  1. Before enter chat, user can enter name to identify his identity
+  2. Implement save message in memory like localStorage without using backend
+  3. Each new browser tab can join the chat with new user, the chat can live update without using websocket
+  4. Function to send message
+  5. Show chat history
+
+Technologies used: TailwindCss, Reactjs
+Youtube demo: https://youtu.be/zTLHaSHytDQ
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
