@@ -17,7 +17,6 @@ export default function ChatScreen(props) {
         el.scrollTop = el.scrollHeight
         return;
       }, [prevChat]);
-      
     function messageHandler(event) {
         event.preventDefault();
         setCurMess(event.target.value)
@@ -28,11 +27,9 @@ export default function ChatScreen(props) {
         if (window.localStorage.getItem('chatLog').includes(' AND '))  arr = window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el));
         else if (window.localStorage.getItem('chatLog') !== '') {arr = [JSON.parse(window.localStorage.getItem('chatLog'))] }
         if (arr.length> 0) {
-            
             let lastChat = arr[arr.length - 1];
             if (arr.length === 1 && lastChat.chat.length === 0 && lastChat.userName !== props.myName) arr.shift()
             if (lastChat.userName === props.myName) {
-                // arr[arr.length - 1].chat.push(curMess)
                 lastChat = {userName: props.myName, chat: [...lastChat.chat, curMess]}
                 arr.splice(arr.length-1, 1, lastChat)
                 setPrevChat(arr)

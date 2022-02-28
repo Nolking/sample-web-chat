@@ -5,12 +5,10 @@ import './App.css';
 function App() {
   const [identifiedUser, setIdentifiedUser] = useState(false);
   const [myName, setMyName] = useState('')
-  // const [trigger, setTrigger] = useState(false)
   if (window.localStorage.getItem('chatLog') == null) window.localStorage.setItem('chatLog','') 
   let arrChatLog = []
   if (window.localStorage.getItem('chatLog').includes(' AND '))  arrChatLog = window.localStorage.getItem('chatLog').split(' AND ').map(el => JSON.parse(el));
   else if (window.localStorage.getItem('chatLog') !== '') {arrChatLog = [JSON.parse(window.localStorage.getItem('chatLog'))] }
-  
   let [chatLog, setChatLog] = useState(arrChatLog)
   function handlePrevChat(chatLog) {
     setChatLog(chatLog)
@@ -28,7 +26,6 @@ function App() {
       users.push(myName);
       users.join('/');
     } 
-    // else {alert('user already exists, please choose another one'); return;}
     window.localStorage.setItem('userList', users)
       setIdentifiedUser(true)
       if (window.localStorage.getItem('chatLog').includes(' AND ')) {
@@ -57,5 +54,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
