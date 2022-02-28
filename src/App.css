@@ -23,9 +23,31 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.avatar:hover {opacity: 0.8; cursor: pointer;}
+.message:hover {opacity: 0.8;}
+button:hover {cursor: pointer; opacity: 0.8;}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #7e5bef;
+}
 .my-message p {word-break: break-all;}
 .other-message p {word-break: break-all;}
-
+input:focus {outline: 0px }
 
 .App-link {
   color: #61dafb;

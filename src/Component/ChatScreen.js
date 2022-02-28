@@ -15,6 +15,7 @@ export default function ChatScreen(props) {
         if (window.localStorage.getItem('chatLog') === '') setPrevChat([{userName: props.myName, chat: []}]); 
         let el = document.querySelector('.chat-history');
         el.scrollTop = el.scrollHeight
+        return;
       }, [prevChat]);
       
     function messageHandler(event) {
@@ -48,7 +49,8 @@ export default function ChatScreen(props) {
         } else {
             setPrevChat([{userName: props.myName, chat: curMess}]); 
         }
-        chatInputRef.current = '';
+        document.querySelector('#messInput').value = ''; 
+        setCurMess('')
     }
     return (
         <div  className="text-3xl relative block w-[400px] ">
@@ -57,8 +59,8 @@ export default function ChatScreen(props) {
             </div>
             <ChatHistory myName={props.myName} chatLog={prevChat}></ChatHistory>
             <div className="chat-footer w-[100%] h-[40px] flex absolute bottom-0 bg-purple">
-                <input ref={chatInputRef} onKeyUp={messageHandler} className="inline-block h-[40px] pl-[10px] text-purple ml-[10px] text-sm w-[70%] border-2 h-[30px] rounded-sm  border-solid border-purple"></input>
-                <button onClick={sendMesage} id="sendButton" className="inline-block ml-[10px] text-white font-bold h-[40px] rounded-sm  ">Send</button>
+                <input ref={chatInputRef} id="messInput" onKeyUp={messageHandler} className="inline-block h-[30px] pl-[10px] text-purple ml-[10px] text-sm w-[70%] border-2 h-[30px] rounded-lg mt-[5px]  border-solid border-purple"></input>
+                <button onClick={sendMesage} id="sendButton" className="inline-block ml-[10px] mt-[5px] text-purple bg-white font-bold text-base h-[30px] rounded-[20px] w-[80px] ">Send</button>
             </div>
         </div>
     )
